@@ -1,0 +1,16 @@
+rw3d.inp                       PARAMETER FILE FOR RW3D
+rw3d_BTCs.dat                                FILE WITH HISTOGRAM (PDF) OF PARTICLE ARRIVAL TIMES (BTCs)
+rw3d_CBTCs.dat                               FILE WITH CUMULATIVE PDF PARTICLE ARRIVAL TIMES (CBTCs)
+rw3d_part_evol.dat                           FILE WITH PARTICLE CLOUD EVOLUTION WITH TIME 
+rw3d_part_path.dat                           FILE WITH PARTICLE PATHS
+rw3d_cart_spat_mom.dat                       FILE WITH CARTESIAN SPATIAL MOMENTS
+rw3d_xyz_plane_mom.dat                       FILE WITH SPATIAL MOMENTS OF PARTICLE POSITION AT CONTROL PLANES
+rw3d_xyz_plane_location.dat                  FILE WITH PARTICLE POSITION AT CONTROL PLANES
+rw3d_dil_index.dat                           FILE WITH DILUTION INDEX OF KITANIDIS
+rw3d_radial_spat_mom.dat                     FILE WITH RADIAL SPATIAL MOMENTS
+rw3d_temp_mom.dat                            FILE WITH TEMPORAL MOMENTS
+rw3d_plane_dispersivity.dat                  FILE WITH DISPERSIVITIES FROM CONTROL PLANES
+rw3d_time.dat
+rw3d_velocities_TECPLOT.dat 
+rw3d_dBTCs.dat 
+ 

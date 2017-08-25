@@ -1,0 +1,426 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                           _/_/_/_/  _/      _/  _/_/_/_/  _/_/_/ 
+                                          _/    _/  _/      _/        _/  _/    _/ 
+                                         _/_/_/    _/  _/  _/    _/_/_/  _/    _/ 
+                                        _/    _/  _/  _/  _/        _/  _/    _/ 
+                                       _/    _/  _/_/_/_/_/  _/_/_/_/  _/_/_/ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+			INPUTs for RW3D_Rx: REACTIVE TRANSPORT CODE BASED ON THE RANDOM WALK METHOD
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+0                                   		Debugging (0=Standard,10=Maximum) 
+4   7                                  		Number of Aqueous and Mineral species 
+A   B   C   D	  	                  	Name of Aqueous species 
+E   F	G	H	I	J	Z				Name of Mineral species 
+624.0                             		Simulation Time
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. GEOMETRY .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+100    1    1                         		nx,ny,nz
+not_used 		1.0 	1 	0       dx: file,const,ivar,flag   (0=> const,else => use file) 
+not_used 		1.0 	1 	0       dy: file,const,ivar,flag   (0=> const,else => use file)
+not_used 		1.0 	1 	0       dz: file,const,ivar,flag   (0=> const,else => use file)
+not_used 		1.0	1	0	InactiveCell: file,const,ivar,flag (0=>nothing,1=>GSLIB,2=>MODFLOW, 3=> simple)
+1 1 1 1 1 1                               	ibx1,ibx2,iby1,iby2,ibz1,ibz2 - boundary conditions
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. TIME DISCRETIZATION .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+optimum_dt                         		Method (constant_move, constant_time, one_time_x_cell, constant_Pe, constant_Pe_or_Cu, optimum_dt)
+0.1  0.1  0.1  0.1  0.1  0.1           		Dt, Cu, Pe, DaKINETIC, DaDECAY, DaMMT
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. ADVECTION . 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+F                                         	logical flag (F=no dispersion; T=yes)
+Eulerian                                	method (Eulerian,Exponential)
+not_used   		0.0832	1 	0       qx(nx+1,ny,nz): file,const,ivar,flag   (0 => const, 1 => use file, 2 => use mf2k binary cell_by_cell flux file)
+not_used   		0.0 	1 	0       qy(nx,ny+1,nz): file,const,ivar,flag   (0 => const, 1 => use file, 2 => use mf2k binary cell_by_cell flux file)
+not_used   		0.0	1 	0       qz(nx,ny,nz+1): file,const,ivar,flag   (0 => const, 1 => use file, 2 => use mf2k binary cell_by_cell flux file)
+not_used     		0.35 	1 	0       poro(nx,ny,nz): file,const,ivar,flag   (0 => const, 1 => use file)
+1                                              	NPER: 		Number of velocity stress periods
+1.0    1    1.0000    SS			PERLEN:		length period, NSTP:number time steps, TSMULT: multiplier, SS/TR
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. DISPERSION .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+T                                           	logical flag (F=no dispersion; T=yes)
+not_used       		0.0     1 	0    	aL:  		file,const,ivar,flag   (0 => const, else => use file)
+not_used       		0.0		1 	0   	aTH: 		file,const,ivar,flag   (0 => const, else => use file)
+not_used       		0.0 	1 	0      	aTV: 		file,const,ivar,flag   (0 => const, else => use file)
+not_used       		0.06 	1 	0      	Dm:  		file,const,ivar,flag   (0 => const, else => use file)
+not_used       		0.0 	1 	0      	DmTH:  		file,const,ivar,flag   (0 => const, else => use file)
+not_used       		0.0 	1 	0      	DmTV:  		file,const,ivar,flag   (0 => const, else => use file)
+1.0 1.0 1.0 1.0 1.0                                 MULTa   (for each aqueous species)
+1.0 13.0 1.0 0.578 1.0                                 MULTD   (for each aqueous species)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. MULTIRATE MASS TRANSFER .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+F                                   		logical flag (F=no mass transfer; T=yes)
+spherical_diffusion		    		type of mass transfer model (linear_sorption ; layered_diffusion ; spherical_diffusion ; multirate)
+10						number of immobile zones or term for the Multirate series (for layered, cylindrical or spherical diffusion)
+not_used		0.037	1	0	poro im_zone1:	file,const,ivar,flag (0 => const, else => use file) |porosity for each zone
+not_used		0.3	1	0	alpha' zone1:	file,const,ivar,flag (0 => const, else => use file) |firt-order mass transfer rate for each zone
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. CHEMICAL REACTIONS .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+... sorption
+----------------------------------------
+F                               		logical flag (F=no mass transfer; T=yes)
+linear						type of sorption (linear)
+not_used 		2.9	1	0	Rm1: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm2: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm3: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm4: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm5: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm6: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm7: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm8: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm9: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm10: file,const,ivar,flag (0=> const,else => use file)
+not_used 		2.9	1	0	Rm11: file,const,ivar,flag (0=> const,else => use file)
+not_used 		13.08	1	0	Rim spe1-zone1		|
+not_used 		13.08	1	0	Rim spe1-zone2		|
+not_used 		13.08	1	0	Rim spe1-zone3		|
+not_used 		13.08	1	0	Rim spe1-zone4		|
+not_used 		13.08	1	0	Rim spe1-zone5		|
+not_used 		13.08	1	0	Rim spe1-zone6		|
+not_used 		13.08	1	0	Rim spe1-zone7		|
+not_used 		13.08	1	0	Rim spe1-zone8		|
+not_used 		13.08	1	0	Rim spe1-zone9		|
+not_used 		13.08	1	0	Rim spe1-zone10		|
+not_used 		13.08	1	0	Rim spe1-zone11		|
+----------------------------------------
+... first order decay network
+----------------------------------------
+F                               		logical flag (F=no mass transfer; T=yes)
+1 						number of species within the decay network
+B 					name of species (order controls the network if serial)
+serial 						reaction arquitecture (serial; network)
+not_used 		0.0042	1	0	k1: file,const,ivar, flag (0=> const,else => use file)
+not_used 		0.00	1	0	y11: file,const,ivar, flag (0=> const,else => use file)
+not_used 		0.0042	1	0	kim spe1-zone1		|first-order decay rate in immobile zones
+----------------------------------------
+... bimolecular reaction network
+----------------------------------------
+T                                           	logical flag (F=no mass transfer; T=yes)
+12	2                                         	Number of chemical reactions
+[ B        --> G  ]                         	reaction 1
+[ G        --> B  ]                         	reaction 2
+[ A   +  B --> C  ]                         	reaction 3
+[ C        --> B + E + Z ]                    	reaction 4
+[ C        --> A + B  ]                     	reaction 5
+[ B        -->        ]                         reaction 6
+[ A   +  G --> H  ]                     	reaction 12
+[ H        --> G + I + Z ]                    	reaction 14
+[ H        --> G + A ]                    	reaction 15
+[ G        -->        ]                         reaction 6
+[ B   +  D --> F + B  ]                         	reaction 13
+[ D   +  G --> J + G  ]                     	reaction 12
+not_used  		0.0375  1   	0      	Katt: file,const,ivar,flag (0 => const, else => use file):  attachment coefficient
+not_used  		0.00075  1   	0      	Kdet: file,const,ivar,flag (0 => const, else => use file):  detachment coefficient
+not_used  		0.015   1   	0      	Kf: file,const,ivar,flag (0 => const, else => use file):  binding rate constant
+not_used  		0.1295  1   	0      	Kc: file,const,ivar,flag (0 => const, else => use file):  conversion rate constant
+not_used  		0.0505  1   	0      	Kr: file,const,ivar,flag (0 => const, else => use file):  dissociation rate coefficient
+not_used  		0.0042  1   	0      	Kdec: file,const,ivar,flag (0 => const, else => use file):  Decay rate coefficient
+not_used  		0.015   1   	0      	Kf: file,const,ivar,flag (0 => const, else => use file):  binding rate constant
+not_used  		0.1295  1   	0      	Kc: file,const,ivar,flag (0 => const, else => use file):  conversion rate constant
+not_used  		0.0505  1   	0      	Kr: file,const,ivar,flag (0 => const, else => use file):  dissociation rate coefficient
+not_used  		0.0042  1   	0      	Kdec: file,const,ivar,flag (0 => const, else => use file):  Decay rate coefficient
+not_used  		0.0639  1   	0      	Kp: file,const,ivar,flag (0 => const, else => use file):  CT reaction rate coefficient
+not_used  		0.0639  1   	0      	Kp: file,const,ivar,flag (0 => const, else => use file):  CT reaction rate coefficient
+not_used  		0.25  1   	0      	gy: file,const,ivar,flag (0 => const, else => use file):  growth yield coefficient 4
+not_used  		0.25  1   	0      	gy: file,const,ivar,flag (0 => const, else => use file):  growth yield coefficient 4
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. CONTROL SURFACE .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+0                                         	nwell  => wells: xwell,ywell,rwell,zbot,ztop,np,flag(1=removed,0=pass thru)
+0                                           	nplane => planes: dist,type,flag(1=removed,pass thru)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. INJECTIONS .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+11                                           	Number of Injections
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+0.0   0.5   0.5   18.8  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+649                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+18.8   0.5   0.5   28.2  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+312                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+28.2   0.5   0.5   37.6  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+298                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+37.6   0.5   0.5   47.0  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+270                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+47.0   0.5   0.5   56.4  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+285                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+56.4   0.5   0.5   75.2  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+617                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+75.2   0.5   0.5   84.6  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+324                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+84.6   0.5   0.5   94.0  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+328                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	1                           	properties: pmass, zone, species
+94.0   0.5   0.5   100.0  0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+217                                        	Number of particles
+line_by_points_random    DIRAC                	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	2                           	properties: pmass, zone, species
+44.4  0.5   0.5   59.6   0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+2640                                        	Number of particles
+line_by_points_random    DIRAC                   	Injection:  Type, Function (DIRAC/GENERAL)
+0.7576  	0  	4                           	properties: pmass, zone, species
+0.0  0.5   0.5   100.0   0.5   0.5              position: x1, y1, z1, x2, y2, z2
+0.0                                         	Time of injection 
+13                                       	Number of particles
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. RECIRCULATIONS .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+F                               		logical flag (F=no mass transfer; T=yes)
+2						Number of connection
+[ D1 AND D3 AND D5 AND D7 AND D9 AND D11 AND D13 AND D15 --> D2 AND D4 AND D6 AND D8 AND D10 AND D12 AND D14 ]
+30.32	30.89	28.31	23.98	33.21	33.25	38.09
+recircul_tf_odd.dat  	1.0                   	Time function: file,const
+[ D2 AND D4 AND D6 AND D8 AND D10 AND D12 AND D14 --> D1 AND D3 AND D5 AND D7 AND D9 AND D11 AND D13 AND D15 ]
+26.44	26.23	25.57	21.65	24.38	28.85	31.54	33.38
+recircul_tf_even.dat  	1.0                  	Time function: file,const
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+. POST-PROCESSING AND OUTPUT OPTIONS .
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+PARAMETERS FOR PLUME SNAPHOTS:             
+  0                                         	flag: Print Cartesian Spatial Moments at Snapshots	
+  0                                         	flag: Print Particle Cloud at Snapshots
+  10.0   20   1.1                      		times: OPTION_1: tlen,ntstep,tmult; OPTION_2: file name; OPTION_3: write "ALWAYS" to print every time step 
+PARAMETERS FOR BREAKTHRU CURVES: 
+  0                                         	flag: Print Temporal Moments of BTCs     
+  0    100   plugin   -10.   1. 100.      	flag: Print BTCs,ngrid,Kernel (BOX, TRIANGLE, GAUSS),bw (<0 => optimal),Min,Max
+  12    	12                              flag: Print CBTCs,frequency (particles/prints)
+  1    	1	-2                          	flag: Print Path, frequency (moves/prints), particle (if < 0 => all particles)  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+  END OF FILE =================================================================================================================================================
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+        EXAMPLES INPUT FILES FOR INJECTION PACKAGE
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------- Injections --------------------------------------------------------------------------------------------------------------------------------------
+1                                           Number of Injections
+POINT    DIRAC                              Injection:  Type, Function (DIRAC/GENERAL)
+0.01  	0  	1                           properties: pmass, zone, species
+200.0 	500.0 	0.5                         parameters: xp, yp, zp
+10.0                                        Time of Injection
+100                                         Number of particles
+------------- Injections --------------------------------------------------------------------------------------------------------------------------------------
+1                                           Number of Injections
+POINT    GENERAL                            Injection:  Type, Function (DIRAC/GENERAL)
+0.01  	0  	1                           properties: pmass, zone, species
+200.0 	500.0 	0.5                         parameters: xp, yp, zp
+timefunction.dat	1.0	1           Time Function (file,const,flag)
+1                                           Frequency (2=> skip one time step)
+------------- Injections --------------------------------------------------------------------------------------------------------------------------------------
+1                                           Number of Injections
+read_from_file    DIRAC                     Injection:  Type, Function (DIRAC/GENERAL)
+x0_A.inp                                    File name
+0.                                          Time of injection
+10000                                       Number of particles
+------------- Injections --------------------------------------------------------------------------------------------------------------------------------------
+1                                           Number of Injections
+read_from_file    GENERAL                   Injection:  Type, Function (DIRAC/GENERAL)
+x0_A.inp                                    File name
+timefunction.dat	1.0	1           Time Function (file,const,flag)
+1                                           Frequency (2=> skip one time step)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+        EXAMPLES INPUT FILES FOR REACTIVE PACKAGE
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------- Reactive Multirate Mass Transfer ---------------------------------------------------------------------------------------
+F                                           logical flag (F=no mass transfer; T=yes)
+multirate                                   type: type of mass transfer model (layered,spherical,cylindrical, general) 
+1                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          bd:       file,const,ivar, flag (0=> bd=const,else => use file)
+not_used  0.0  1 0                          Kd_m:     file,const,ivar, flag (0=> Kd=const,else => use file) - for the mobile zone
+not_used  1.0  1 0                          fm:       file,const,ivar, flag (0=> fm=const,else => use file) - for the mobile zone
+not_used  0.1  1 0                          poro_im_1:  file,const,ivar, flag (0=> poro_imm=const,else => use file) 
+not_used  0.0  1 0                          kd_im_1:    file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+not_used  1.0  1 0                          fim_1:     file,const,ivar, flag (0=> fim=const,else => use file) 
+not_used  0.15  1 0                         mtransf_1:  file,const,ivar, flag (0=> Kd_imm=const,else => use file)  
+---------------------------- Reactive Power Law Distribution of Mass TRansfer -------------------------------------------------------------------------------------------
+F                                           logical flag (F=no mass transfer; T=yes)
+power_law                                   type: type of mass transfer model (layered,spherical,cylindrical, general) 
+50                                          nzones: Number of immobile zones
+not_used  1.0    1 0                        Rm:       file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0    1 0                        btot:     file,const,ivar, flag (0=> const,else => use file)
+not_used  0.1    1 0                        Amin:     file,const,ivar, flag (0=> const,else => use file) 
+not_used  10.    1 0                        Amax:     file,const,ivar, flag (0=> const,else => use file) 
+not_used  6.0    1 0                        power:    file,const,ivar, flag (0=> const,else => use file) 
+---------------------- Reactive Multirate Mass Transfer -------------------------------------------------------------------------------------------------------
+T                                           logical flag (F=no mass transfer; T=yes)
+multirate                                   type: type of mass transfer model (linear_sorption ; layered_diffusion ; spherical_diffusion ; multirate) 
+1                                           nzones: Number of immobile zones
+not_used 	2.0	1	0           bd:         file,const,ivar, flag (0=> bd=const,else => use file)
+not_used  	0.0	1 	0           Kd_m:       file,const,ivar, flag (0=> const,else => use file) 
+not_used  	1.0  	1 	0           fm:         file,const,ivar, flag (0=> fm=const,else => use file) 
+not_used  	0.1 	1 	0           poro_im(1): file,const,ivar, flag (0=> const,else => use file)
+not_used  	0.0	1 	0           kd_im(1):   file,const,ivar, flag (0=> const,else => use file) 
+not_used  	1.0  	1 	0           fim_1:     file,const,ivar, flag (0=> fim=const,else => use file) 
+not_used  	0.01728    1 	0           mtransf(1): file,const,ivar, flag (0=> const,else => use file) 
+----------------------------- Reactive Equilibrium Linear Sorption -----------------------------------------------------------------------------------
+T                                           logical flag (F=no reaction; T=yes) 
+Linear_sorption                             type reaction (linear)
+not_used 1.0 1 0                            bd: file,const,ivar, flag 
+not_used 1.0 1 0                            Kd: file,const,ivar, flag (0=> Kd=const,else => use file) - for the mobile zone
+---------------------------- Reactive Multirate Mass Transfer ---------------------------------------------------------------------------------------
+F                                           logical flag (F=no mass transfer; T=yes)
+multirate                                   type: type of mass transfer model (layered,spherical,cylindrical, general) 
+2                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          bd:       file,const,ivar, flag (0=> bd=const,else => use file)
+not_used  1.0  1 0                          Kd_m:     file,const,ivar, flag (0=> Kd=const,else => use file) - for the mobile zone
+not_used  1.0  1 0                          fm:       file,const,ivar, flag (0=> fm=const,else => use file) - for the mobile zone
+not_used  0.2  1 0                          poro_im_1:  file,const,ivar, flag (0=> poro_imm=const,else => use file) 
+not_used  0.01 1 0                          kd_im_1:    file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+not_used  1.0  1 0                          fim_1:     file,const,ivar, flag (0=> fim=const,else => use file) 
+not_used  0.1  1 0                          mtransf_1:  file,const,ivar, flag (0=> Kd_imm=const,else => use file)  
+not_used  0.2  1 0                          poro_im_2:  file,const,ivar, flag (0=> poro_imm=const,else => use file)
+not_used  0.01 1 0                          kd_im_2:    file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+not_used  1.0  1 0                          fim_2:     file,const,ivar, flag (0=> fim=const,else => use file) 
+not_used  0.1  1 0                          mtransf_2:  file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+---------------------------- Reactive Spherical Diffusion -------------------------------------------------------------------------------------------
+F                                           logical flag (F=no mass transfer; T=yes)
+spherical_diffusion                         type: type of mass transfer model (layered,spherical,cylindrical, general) 
+2                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          bd:       file,const,ivar, flag (0=> bd=const,else => use file)
+not_used  1.0  1 0                          Kd_m:     file,const,ivar, flag (0=> Kd=const,else => use file) 
+not_used  0.2  1 0                          poro_im:  file,const,ivar, flag (0=> poro_imm=const,else => use file) 
+not_used  0.01 1 0                          kd_im:    file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+not_used  0.1  1 0                          mtransf(Dp/a^2):  file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+---------------------------- Reactive Composite Media: Two Spherical Geometries -------------------------------------------------------------------------------------------
+T                                           logical flag (F=no mass transfer; T=yes)
+composite_media                             type: type of mass transfer model (layered,spherical,cylindrical,composite) 
+0	2	0	0                   nmrate, nsph, ncyl, nlay
+0.5   0.5                                   Volume Fraction of Each Geometry
+2                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          bd:       file,const,ivar, flag (0=> bd=const,else => use file)
+not_used  1.0  1 0                          Kd_m:     file,const,ivar, flag (0=> Kd=const,else => use file)
+not_used  0.2  1 0                          poro_im:  file,const,ivar, flag (0=> poro_imm=const,else => use file) 
+not_used  0.01 1 0                          kd_im:    file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+not_used  0.1  1 0                          mtransf(Dp/a^2):  file,const,ivar, flag (0=> Kd_imm=const,else => use file) (only used if type_mtransf = general) 
+2                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          bd:       file,const,ivar, flag (0=> bd=const,else => use file)
+not_used  1.0  1 0                          Kd_m:     file,const,ivar, flag (0=> Kd=const,else => use file) 
+not_used  0.02 1 0                          kd_im:    file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+not_used  0.2  1 0                          mtransf(Dp/a^2):  file,const,ivar, flag (0=> Kd_imm=const,else => use file) 
+---------------------------- Reactive Spherical Diffusion -------------------------------------------------------------------------------------------
+T                                           logical flag (F=no mass transfer; T=yes)
+cylindrical_diffusion                       type: type of mass transfer model (layered,spherical,cylindrical, general) 
+3                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          bd:       file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0  1 0                          Kd_m:     file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.2  1 0                          poro_im:  file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.01 1 0                          kd_im:    file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.1  1 0                          mtransf(Dp/a^2):  file,const,ivar, flag (0=> Kd_im=const,else => use file) 
+---------------------------- Reactive Composite Media: Two Spherical Geometries -------------------------------------------------------------------------------------------
+T                                           logical flag (F=no mass transfer; T=yes)
+composite_media                             type: type mass transfer model (layered,spherical,cylindrical,composite) 
+0	2	0	0                   nmrate, nsph, ncyl, nlay
+0.5 0.5                                     Volume fraction (Fmrate,Fsph,Fcyl,Flay)
+2                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          bd:       file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0  1 0                          Kd_m:     file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0  1 0                          fm:       file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.2  1 0                          poro_im:  file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.01 1 0                          kd_im:    file,const,ivar, flag (0=> const,else => use file) 
+not_used  1.0  1 0                          fim:      file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.1  1 0                          mtransf(Dp/a^2):  file,const,ivar, flag (0=> const,else => use file) 
+2                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          bd:       file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0  1 0                          Kd_m:     file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.3  1 0                          poro_im:  file,const,ivar, flag (0=> const,else => use file)
+not_used  0.02 1 0                          kd_im:    file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.2  1 0                          mtransf(Dp/a^2):  file,const,ivar, flag (0=>const,else => use file) 
+---------------------------- Reactive Power Law Distribution of Mass TRansfer -------------------------------------------------------------------------------------------
+T                                           logical flag (F=no mass transfer; T=yes)
+power_law                                   type: type of mass transfer model (layered,spherical,cylindrical, general) 
+3                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          Rm:       file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0  1 0                          btot:     file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0  1 0                          Amin:     file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.2  1 0                          Amax:     file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.01 1 0                          power:    file,const,ivar, flag (0=> const,else => use file) 
+---------------------------- Reactive LogNormal Distribution of Mass TRansfer -------------------------------------------------------------------------------------------
+T                                           logical flag (F=no mass transfer; T=yes)
+lognormal_law                               type: type of mass transfer model (layered,spherical,cylindrical, general) 
+3                                           nzones: Number of immobile zones
+not_used  1.0  1 0                          Rm:     file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0  1 0                          btot:     file,const,ivar, flag (0=> const,else => use file)
+not_used  1.0  1 0                          meanlog:  file,const,ivar, flag (0=> const,else => use file) 
+not_used  0.2  1 0                          stdvlog:     file,const,ivar, flag (0=> const,else => use file) 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+_____________________________________________________________________
+ 
+          TYPES OF INJECTIONS
+          
+ NAME                   VARIABLES
+_____________________________________________________________________
+                 |
+ point           | xinj, yinj, zinj
+ line            | xinj, yinj, zbot, ztop
+ block           | idwn, jdwn, kdwn, iup, jup, kup,np11x,np11y,np11z 
+ cyrcle          | xinj, yinj, zbot, ztop, rcyr
+ radial          | xinj, yinj, zbot, ztop, rcp 
+ plane           | xdist, width, height
+ plane_random    | xdist, width, height
+ line_by_points  | x1, y1, z1, x2, y2, z2
+ read_from_file  | FileName
+______________________________________________________________________
+ 
+ zone = 0 is the mobile zone
+ np11x is the number of particles per unit length in one grid-cell of the block region
+____________________________________________________________________
+ 
+          IDEBUG
+_____________________________________________________________________
+                 |
+ <  0            | do not print particle information to screen
+ =  0            | No debugging, Normal Run
+ >= 2            | print Damkohler Number of breakthrus (plane and wells)
+ >= 4            | print Alpha and Beta every time is calculated
+ >= 10           | 
+ ____________________________________________________________________
+ 
+ 

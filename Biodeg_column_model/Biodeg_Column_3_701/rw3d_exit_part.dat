@@ -1,0 +1,2 @@
+ TITLE="TECPLOT input file: Exit Particles" 
+ VARIABLES="Xp" "Yp" "Zp" "SPECIES" "ZONE" "PARTID" "TIME" 
