@@ -1,0 +1,19 @@
+RT3DSUP
+BTN "sch44.btn"
+FLO "sch44.hff"
+ADV "sch44.adv"
+DSP "sch44.dsp"
+SSM "sch44.SSM"
+RCT "sch44.rct"
+GCG "sch44.gcg"
+CHK Y
+OUT "sch44.out"
+CON "sch44.con"
+DSS "sch44.dss"
+SPC "CT" 1 1
+SPC "KCM" 2 1
+SPC "ACETATE" 3 1
+SPC "NITRATE" 4 1
+SPC "TRACER" 5 1
+SPC "SCT" 6 0
+SPC "KCIMM" 7 0
